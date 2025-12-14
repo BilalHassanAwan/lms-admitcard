@@ -22,7 +22,7 @@ const studentDatabase = {
     "B24F1336CS032": {
         name: "Abdul Raheem",
         image: "abdulraheem.jpg",
-        active: true, // Set to false to hide this card
+        active: false, // Set to false to hide this card
         schedule: [
             { sn: "1", date: "12/15/2025", paper: "Data Structures and Algorithms (COMP-201)", venue: "A1-304.3\n(Seat#24)", time: "10:00:00" },
             { sn: "2", date: "12/16/2025", paper: "Probability and Statistics (MTH-210)", venue: "A2-201\n(Seat#28)", time: "10:00:00" },

@@ -1,0 +1,553 @@
+<html>
+
+<head>
+
+  <!-- Include the qrcode.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <meta name="viewport" content="width=device-width">
+  <title>Exam Admit Card</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    .content {
+      width: 90%;
+      margin: 0 auto;
+      /* Center the content */
+      position: relative;
+    }
+
+    .instructions {
+      width: 90%;
+      text-align: left;
+      margin: 10px auto;
+      /* Center the instructions with some margin */
+      line-height: 1.5;
+      font-size: 10px;
+    }
+
+    img.logo {
+      width: 20%;
+      float: left;
+    }
+
+    img#avatar {
+      width: 60px;
+      /* smaller photo size */
+      height: auto;
+      /* keeps the correct proportion */
+      position: absolute;
+      top: 10px;
+      /* small gap from top */
+      right: 10px;
+      /* small gap from right */
+      /* light border for professional look */
+      /* rounded corners like passport photo */
+      padding: 2px;
+      background: white;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      /* optional subtle shadow */
+    }
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    h2,
+    h3 {
+      text-align: center;
+    }
+
+    h4,
+    h5 {
+      text-align: left;
+    }
+
+    button#print-button {
+      margin: 20px auto;
+      /* Center the button with margin */
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: #5bc0de;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button#print-button:hover {
+      background-color: #5bc0de;
+    }
+
+    /* QR code styling */
+    #qrcode-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+      margin-right: 40px;
+      margin-bottom: 40px;
+    }
+  </style>
+
+  <style>
+    /* Your existing styles */
+
+    /* Print styles */
+    @media print {
+      body {
+        margin: 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 6px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .noprint {
+        display: none;
+      }
+    }
+  </style>
+
+
+  <style>
+    /* Your existing styles */
+
+    .highlighted {
+      background-color: #f2f2f2;
+    }
+
+    @media print {
+      tr.highlighted {
+        background-color: #f2f2f2;
+      }
+    }
+  </style>
+
+  <style data-jss="" data-meta="MuiDialog">
+    @media print {
+      .MuiDialog-root {
+        position: absolute !important;
+      }
+    }
+
+    .MuiDialog-scrollPaper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .MuiDialog-scrollBody {
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align: center;
+    }
+
+    .MuiDialog-scrollBody:after {
+      width: 0;
+      height: 100%;
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .MuiDialog-container {
+      height: 100%;
+      outline: 0;
+    }
+
+    @media print {
+      .MuiDialog-container {
+        height: auto;
+      }
+    }
+
+    .MuiDialog-paper {
+      margin: 32px;
+      position: relative;
+      overflow-y: auto;
+    }
+
+    @media print {
+      .MuiDialog-paper {
+        box-shadow: none;
+        overflow-y: visible;
+      }
+    }
+
+    .MuiDialog-paperScrollPaper {
+      display: flex;
+      max-height: calc(100% - 64px);
+      flex-direction: column;
+    }
+
+    .MuiDialog-paperScrollBody {
+      display: inline-block;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .MuiDialog-paperWidthFalse {
+      max-width: calc(100% - 64px);
+    }
+
+    .MuiDialog-paperWidthXs {
+      max-width: 444px;
+    }
+
+    @media (max-width:507.95px) {
+      .MuiDialog-paperWidthXs.MuiDialog-paperScrollBody {
+        max-width: calc(100% - 64px);
+      }
+    }
+
+    .MuiDialog-paperWidthSm {
+      max-width: 600px;
+    }
+
+    @media (max-width:663.95px) {
+      .MuiDialog-paperWidthSm.MuiDialog-paperScrollBody {
+        max-width: calc(100% - 64px);
+      }
+    }
+
+    .MuiDialog-paperWidthMd {
+      max-width: 960px;
+    }
+
+    @media (max-width:1023.95px) {
+      .MuiDialog-paperWidthMd.MuiDialog-paperScrollBody {
+        max-width: calc(100% - 64px);
+      }
+    }
+
+    .MuiDialog-paperWidthLg {
+      max-width: 1280px;
+    }
+
+    @media (max-width:1343.95px) {
+      .MuiDialog-paperWidthLg.MuiDialog-paperScrollBody {
+        max-width: calc(100% - 64px);
+      }
+    }
+
+    .MuiDialog-paperWidthXl {
+      max-width: 1920px;
+    }
+
+    @media (max-width:1983.95px) {
+      .MuiDialog-paperWidthXl.MuiDialog-paperScrollBody {
+        max-width: calc(100% - 64px);
+      }
+    }
+
+    .MuiDialog-paperFullWidth {
+      width: calc(100% - 64px);
+    }
+
+    .MuiDialog-paperFullScreen {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      max-width: 100%;
+      max-height: none;
+      border-radius: 0;
+    }
+
+    .MuiDialog-paperFullScreen.MuiDialog-paperScrollBody {
+      margin: 0;
+      max-width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="content">
+    <img id="avatar" src="" alt="Student Photo" style="visibility: hidden;">
+
+
+    <h2>
+      Pak-Austria Fachhochschule Institute of Applied Sciences and Technology
+
+    </h2>
+    <h3>
+      EXAM ADMIT CARD
+      End Semester Exam Fall-2025 (FALL-2025)
+    </h3>
+
+    <hr>
+    <br>
+    <table>
+      <tbody>
+        <tr>
+          <td width="50%"><b>NAME:</b> <span id="student-name">--</span></td>
+          <td width="25%"><b>REG NO:</b> <span id="student-reg">--</span></td>
+          <td width="25%"><b>SEMESTER:</b> 3</td>
+        </tr>
+        <tr>
+          <td colspan="2"><b>PROGRAM:</b> Bachelor of Science in Computer Science</td>
+          <td>
+            <b>FEE STATUS:</b>
+            <strong style="color:green"> FEE CLEARED</strong>
+          </td>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h5>The Schedule of examination is given as follows:</h5>
+    <table>
+      <tbody>
+        <tr>
+          <th width="05%">S#</th>
+          <th width="10%">DATE</th>
+          <th width="45%">PAPER</th>
+          <th width="10%">VENUE</th>
+          <th width="10%">TIME</th>
+          <th width="20%">STATUS</th>
+        </tr>
+        <tr class="">
+
+          <td>1</td>
+          <td>12/15/2025</td>
+          <td>Data Structures and Algorithms (COMP-201)</td>
+          <td>A1-207
+            (Seat#39)</td>
+          <td>10:00:00</td>
+          <td>
+            <strong style="color:green">* Attendance Cleared.</strong>
+            <br>
+            <strong style="color:green">* Survey Cleared.</strong>
+            <strong style="color:green">* All Cleared.</strong>
+
+          </td>
+        </tr>
+        <tr class="">
+
+          <td>2</td>
+          <td>12/16/2025</td>
+          <td>Probability and Statistics (MTH-210)</td>
+          <td>A2-207
+            (Seat#39)</td>
+          <td>10:00:00</td>
+          <td>
+            <strong style="color:green">* Attendance Cleared.</strong>
+            <br>
+            <strong style="color:green">* Survey Cleared.</strong>
+            <strong style="color:green">* All Cleared.</strong>
+
+          </td>
+        </tr>
+        <tr class="">
+
+          <td>3</td>
+          <td>12/17/2025</td>
+          <td>Database Systems (COMP-231)</td>
+          <td>A1-304.1
+            (Seat#16)</td>
+          <td>10:00:00</td>
+          <td>
+            <strong style="color:green">* Attendance Cleared.</strong>
+            <br>
+            <strong style="color:green">* Survey Cleared.</strong>
+            <strong style="color:green">* All Cleared.</strong>
+
+          </td>
+        </tr>
+        <tr class="">
+
+          <td>4</td>
+          <td>12/18/2025</td>
+          <td>Digital Logic Design</td>
+          <td>A2-Multipurpose Hall
+            (Seat#42)</td>
+          <td>10:00:00</td>
+          <td>
+            <strong style="color:green">* Attendance Cleared.</strong>
+            <br>
+            <strong style="color:green">* Survey Cleared.</strong>
+            <strong style="color:green">* All Cleared.</strong>
+
+          </td>
+        </tr>
+        <tr class="">
+
+          <td>5</td>
+          <td>12/23/2025</td>
+          <td>Professional Ethics (SS-311)</td>
+          <td>B2-211
+            (Seat#24)</td>
+          <td>14:00:00</td>
+          <td>
+            <strong style="color:green">* Attendance Cleared.</strong>
+            <br>
+            <strong style="color:green">* Survey Cleared.</strong>
+            <strong style="color:green">* All Cleared.</strong>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="instructions">
+    <h4>INSTRUCTIONS:</h4>
+    <ol>
+      <li>Please report to the Examination venue at least 20 minutes before the start of the examination for identity
+        verification.</li>
+      <li>Students will have to produce this exam admit card at the entry point of the exam venue.</li>
+      <li>The total duration of the examination will be already mentioned on the question paper. Any student arriving
+        late will have examination time reduced proportionately.</li>
+      <li>Calculators are allowed in the examination hall. However, sharing of a calculator is strictly prohibited.</li>
+      <li>Possession or use of Cell Phone, Smartwatch, or cheating material is strictly prohibited. Any student caught
+        using unfair means or possessing prohibited devices may lead to disciplinary action.</li>
+      <li>Read instructions on the Answer booklet carefully and follow them.</li>
+    </ol>
+  </div>
+
+  <!-- QR Code at Bottom Right -->
+  <div id="qrcode-container">
+    <div id="qrcode"></div>
+  </div>
+
+
+
+
+
+
+  <div id="E2260D95-75C4-FCC7-384E-B8586D28A429"></div>
+  <!-- 1. LOAD THE DATABASE FILE -->
+  <script src="student_data.js"></script>
+
+  <!-- PDF Download Button -->
+  <div class="noprint" style="margin-top: 20px; margin-bottom: 20px;">
+    <button id="print-button" onclick="window.print()">Download PDF / Print</button>
+  </div>
+
+  <script>
+    // Function to parse URL and update Admit Card
+    function updateAdmitCard() {
+      let query = window.location.search;
+
+      if (query.length > 1) {
+        let regNo = query.substring(1);
+        if (regNo.startsWith('/')) {
+          regNo = regNo.substring(1);
+        }
+        regNo = regNo.toUpperCase();
+
+        console.log("Searching for:", regNo);
+
+        const student = studentDatabase[regNo];
+
+        if (student) {
+          // CHECK IF CARD IS ACTIVE
+          if (student.active === false) {
+            alert("Admit Card is not currently active for this student.");
+            document.querySelector('.content').style.display = 'none'; // Hide the card
+            document.querySelector('#item-container').style.display = 'none';
+            return; // Stop execution
+          }
+
+          // 1. Update Personal Info
+          document.querySelector('.content').style.display = 'block'; // Ensure visible
+          document.getElementById('student-name').textContent = student.name;
+          document.getElementById('student-reg').textContent = regNo;
+
+          // Image handling: Only set src if valid, prevents flashing old image
+          const avatar = document.getElementById('avatar');
+          avatar.onload = function () {
+            this.style.visibility = 'visible';
+          };
+          avatar.src = student.image;
+
+          document.title = "Admit Card - " + student.name;
+
+          // 3. Generate QR Code
+          const qrContainer = document.getElementById("qrcode");
+          if (qrContainer) {
+            qrContainer.innerHTML = ""; // Clear previous code
+            // Use window.location.href to encode the FULL current URL
+            new QRCode(qrContainer, {
+              text: window.location.href,
+              width: 120,
+              height: 120,
+              correctLevel: QRCode.CorrectLevel.H
+            });
+          }
+
+          // 2. Update Schedule Table
+          if (student.schedule) {
+            // Select the second table's tbody (the schedule table)
+            const tableBody = document.querySelector('div.content table:nth-of-type(2) tbody');
+
+            // Get the header row (first row) so we don't delete it
+            const headerRow = tableBody.querySelector('tr:first-child').outerHTML;
+
+            // Start building new HTML with the header
+            let newHtml = headerRow;
+
+            // Loop through each exam in the student's schedule
+            student.schedule.forEach(exam => {
+              newHtml += `
+                <tr>
+                    <td>${exam.sn}</td>
+                    <td>${exam.date}</td>
+                    <td>${exam.paper}</td>
+                     <!-- Preserving newlines in venue if any -->
+                    <td style="white-space: pre-line">${exam.venue}</td>
+                    <td>${exam.time}</td>
+                    <td>
+                        <strong style="color:green">* Attendance Cleared.</strong><br>
+                        <strong style="color:green">* Survey Cleared.</strong>
+                        <strong style="color:green">* All Cleared.</strong>
+                    </td>
+                </tr>`;
+            });
+
+            // Update the table body
+            tableBody.innerHTML = newHtml;
+          }
+
+        } else {
+          // No student found - consider hiding content or showing error
+          document.querySelector('.content').style.display = 'none';
+          alert("Student Record Not Found!\nPlease check the Registration Number in the URL.");
+        }
+      }
+    }
+
+    // Run immediately since script is at end of body
+    updateAdmitCard();
+  </script>
+</body><chatgpt-sidebar data-gpts-theme="light"></chatgpt-sidebar>
+
+</html>

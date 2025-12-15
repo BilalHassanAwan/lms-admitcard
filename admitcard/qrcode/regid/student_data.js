@@ -13,7 +13,7 @@ const studentDatabase = {
             { sn: "1", date: "12/15/2025", paper: "Data Structures and Algorithms (COMP-201)", venue: "A1-207\n(Seat#39)", time: "10:00:00" },
             { sn: "2", date: "12/16/2025", paper: "Probability and Statistics (MTH-210)", venue: "A2-207\n(Seat#39)", time: "10:00:00" },
             { sn: "3", date: "12/17/2025", paper: "Database Systems (COMP-231)", venue: "A1-304.1\n(Seat#16)", time: "10:00:00" },
-            { sn: "4", date: "12/18/2025", paper: "Digital Logic Design", venue: "A2-Multipurpose Hall\n(Seat#42)", time: "10:00:00" },
+            { sn: "4", date: "12/18/2025", paper: "Digital Logic Design", venue: "A2-Multipurpose Hall\n(Seat#41)", time: "10:00:00" },
             { sn: "5", date: "12/23/2025", paper: "Professional Ethics (SS-311)", venue: "B2-211\n(Seat#24)", time: "14:00:00" }
         ]
     },

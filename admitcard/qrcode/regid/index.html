@@ -117,13 +117,24 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     }
 
-    /* QR code styling */
+    /* QR code styling - hidden on screen, only visible when printing */
     #qrcode-container {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 20px;
-      margin-right: 40px;
-      margin-bottom: 40px;
+      display: none;
+    }
+
+    /* Download button styling - visible on screen */
+    #download-pdf-button {
+      margin: 20px auto;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      display: block;
     }
   </style>
 
@@ -163,9 +174,13 @@
         display: none !important;
       }
 
-      /* Show QR code when printing */
+      /* Show QR code when printing with proper positioning */
       #qrcode-container {
         display: flex !important;
+        justify-content: flex-end;
+        margin-top: 20px;
+        margin-right: 40px;
+        margin-bottom: 40px;
       }
 
       /* Ensure QR code prints clearly */

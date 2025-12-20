@@ -96,6 +96,27 @@
       background-color: #5bc0de;
     }
 
+    /* Download PDF button styling */
+    button#download-pdf-button {
+      margin: 20px auto;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      display: block;
+    }
+
+    button#download-pdf-button:hover {
+      background-color: #218838;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
     /* QR code styling */
     #qrcode-container {
       display: flex;
@@ -131,8 +152,19 @@
         background-color: #f2f2f2;
       }
 
+      /* Hide download button when printing */
       .noprint {
-        display: none;
+        display: none !important;
+      }
+
+      /* Show QR code when printing */
+      #qrcode-container {
+        display: flex !important;
+      }
+
+      /* Ensure QR code prints clearly */
+      #qrcode img {
+        image-rendering: -webkit-optimize-contrast;
       }
     }
   </style>
@@ -433,6 +465,21 @@
     </ol>
   </div>
 
+  <!-- QR Code Section -->
+  <div id="qrcode-container">
+    <div style="text-align: center;">
+      <div id="qrcode"></div>
+      <p style="font-size: 10px; margin-top: 5px;">Scan to view online</p>
+    </div>
+  </div>
+
+  <!-- Download PDF Button -->
+  <div style="text-align: center; margin: 20px;" class="noprint">
+    <button id="download-pdf-button" onclick="window.print()">
+      📄 Download as PDF
+    </button>
+  </div>
+
   <!-- 1. LOAD THE DATABASE FILE -->
   <script src="student_data.js"></script>
 
@@ -476,13 +523,14 @@
 
           document.title = "Admit Card - " + student.name;
 
-          // 3. Generate QR Code
+          // 3. Generate QR Code with online URL
           const qrContainer = document.getElementById("qrcode");
           if (qrContainer) {
             qrContainer.innerHTML = ""; // Clear previous code
-            // Use window.location.href to encode the FULL current URL
+            // Generate online URL for QR code
+            const onlineUrl = `https://lms.paf-iast.com/admitcard/qrcode/regid/?/${regNo}`;
             new QRCode(qrContainer, {
-              text: window.location.href,
+              text: onlineUrl,
               width: 120,
               height: 120,
               correctLevel: QRCode.CorrectLevel.H

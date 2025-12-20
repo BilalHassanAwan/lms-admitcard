@@ -32,6 +32,19 @@ const studentDatabase = {
         ]
     },
 
+    // Student 3: Shahab Muhammad Khan
+    "B24F0688CS040": {
+        name: "Shahab Muhammad Khan",
+        image: "shahab.jpg",
+        active: true,
+        schedule: [
+            { sn: "1", date: "12/15/2025", paper: "Data Structures and Algorithms (COMP-201)", venue: "A1-304.3\n(Seat#28)", time: "10:00:00" },
+            { sn: "2", date: "12/16/2025", paper: "Probability and Statistics (MTH-210)", venue: "A1-207\n(Seat#55)", time: "10:00:00" },
+            { sn: "3", date: "12/17/2025", paper: "Database Systems (COMP-231)", venue: "A1-206\n(Seat#25)", time: "10:00:00" },
+            { sn: "4", date: "12/23/2025", paper: "Professional Ethics (SS-311)", venue: "B2-211\n(Seat#72)", time: "14:00:00" }
+        ]
+    },
+
     // Student 3 (TEMPLATE)
     "B24FXXXXCSXXX": {
         name: "Student 3 Name",
